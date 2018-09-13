@@ -1,0 +1,63 @@
+{{ define "weight_index" }}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+    <title>Weight App</title>
+
+    {{ template "weight_header" }}
+  </head>
+
+  <body>
+
+    {{ template "weight_navbar" }}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Aplikasi Berat Badan</h1>
+      <p class="lead">Catat berat badanmu tiap hari !</p>
+      <a class="btn btn-outline-success" href="/create">Tambah Record</a>
+    </div>
+
+    <div class="container">
+      <div class="card-deck mb-12 text-center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Max</th>
+              <th scope="col">Min</th>
+              <th scope="col">Perbedaan</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range . }}
+            <tr>
+              <td>{{ .Date | parseDate }}</td>
+              <td>{{ .WeightMax }}</td>
+              <td>{{ .WeightMin }}</td>
+              <td>{{ . | diffWeight }}</td>
+              <td>
+                <a class="btn btn-outline-warning" href="/update/{{ .ID }}">Ubah</a>
+                <a class="btn btn-outline-danger" href="/delete/{{ .ID }}">Hapus</a>
+              </td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+
+      {{ template "weight_footer" }}  
+    </div>
+
+
+    {{ template "weight_script" }}
+  </body>
+</html>
+
+{{ end }}
