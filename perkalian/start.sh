@@ -2,15 +2,15 @@
 
 # Change Directory Bin
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-echo "[Ongkir App] Changing directory $DIR"
+echo "[Perkalian App] Changing directory $DIR"
 
-echo "[Ongkir App] Checking Bin"
+echo "[Perkalian App] Checking Bin"
 echo ""
 appBin="$DIR/bin"
 if [ -f "$appBin/app" ]
 then
     eval "$appBin/app"
 else
-    echo "[Ongkir App] Trying to Install Ongkir Application"
+    echo "[Perkalian App] Trying to Install Perkalian Application"
     eval "./install.sh"
 fi
