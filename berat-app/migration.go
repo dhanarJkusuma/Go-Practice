@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// AutoMigration is function to make database migration
 func AutoMigration(db *gorm.DB) {
 	db.AutoMigrate(&models.Weight{})
 }

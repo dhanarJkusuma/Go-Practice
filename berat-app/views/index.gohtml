@@ -1,0 +1,124 @@
+{{ define "weight_index" }}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+    <title>Weight App</title>
+
+    {{ template "weight_header" }}
+  </head>
+
+  <body>
+
+    {{ template "weight_navbar" }}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Aplikasi Berat Badan</h1>
+      <p class="lead">Catat berat badanmu tiap hari !</p>
+      <a class="btn btn-outline-success" href="/create">Tambah Record</a>
+    </div>
+
+    <div class="container">
+      {{ if .Message }}
+        {{ if .IsError }}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ .Message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {{ else }}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ .Message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {{ end }}
+      {{ end }}
+      <div class="card-deck mb-12 text-center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Max</th>
+              <th scope="col">Min</th>
+              <th scope="col">Perbedaan</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Data.Content }}
+            <tr>
+              <td>{{ .Date | parseDate }}</td>
+              <td>{{ .WeightMax }}</td>
+              <td>{{ .WeightMin }}</td>
+              <td>{{ . | diffWeight }}</td>
+              <td>
+                <a class="btn btn-outline-info" href="/detail/{{ .ID }}">Detail</a>
+                <a class="btn btn-outline-warning" href="/update/{{ .ID }}">Ubah</a>
+                <a class="btn btn-outline-danger delete-btn" data-date="{{ .Date | parseDate }}" data-id="{{ .ID }}" href="#">Hapus</a>
+              </td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {{ if gt .Data.Page 0 }}
+                <li class="page-item"><a class="page-link" href="/?page=0&size={{ $.Data.Size }}">Previous</a></li>
+              {{ end }}
+              
+              {{ range $val := iterate .Data.LastPage }}
+                {{ if eq $.Data.Page $val }} 
+                  <li class="page-item"><a class="page-link" href="#" style="color:#000;">{{ inc $val }}</a></li>
+                {{ else }}
+                  <li class="page-item"><a class="page-link" href="/?page={{ $val }}&size={{ $.Data.Size }}">{{ inc $val }}</a></li>
+                {{ end }}
+              {{ end }}
+
+              {{ if lt .Data.Page .Data.LastPage }}
+              <li class="page-item"><a class="page-link" href="/?page={{ dec $.Data.LastPage }}&size={{ $.Data.Size }}">Next</a></li>
+              {{ end }}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form method="POST" action="/delete">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirm-modal-label">Dialog Konfirmasi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="id-ref" name="id" />
+              <p id="confirm-text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Hapus</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {{ template "weight_footer" }}  
+    </div>
+
+
+    {{ template "weight_script" }}
+  </body>
+</html>
+
+{{ end }}

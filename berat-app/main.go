@@ -22,6 +22,7 @@ func main() {
 	// db migration
 	AutoMigration(db)
 
+	// init echo
 	e := echo.New()
 
 	// set render template
@@ -31,6 +32,9 @@ func main() {
 	wr := weightModuleRepo.NewWeightRepository(db)
 	wu := weightModuleUsecase.NewWeightUsecase(wr)
 	weightModuleHandler.NewWeightHandler(e, wu)
+
+	// handling not found
+	SetCustomNotFoundHandler()
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

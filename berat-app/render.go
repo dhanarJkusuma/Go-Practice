@@ -17,11 +17,6 @@ type TemplateRenderer struct {
 
 // Render renders a template document
 func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	// Add global methods if data is a map
-	if viewContext, isMap := data.(map[string]interface{}); isMap {
-		viewContext["reverse"] = c.Echo().Reverse
-	}
-
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
@@ -34,13 +29,34 @@ func diffWeight(weight models.Weight) string {
 	return strconv.FormatFloat(res, 'f', 1, 64)
 }
 
+func iterate(count int) []int {
+	var i int
+	var Items []int
+	for i = 0; i < count; i++ {
+		Items = append(Items, i)
+	}
+	return Items
+}
+
+func inc(count int) string {
+	return strconv.Itoa(count + 1)
+}
+
+func dec(count int) string {
+	return strconv.Itoa(count - 1)
+}
+
+// SetRenderTemplate is function to set rendering source template with Helper Function
 func SetRenderTemplate(e *echo.Echo) {
 	var variableFunc = template.FuncMap{
 		"parseDate":  parseDate,
 		"diffWeight": diffWeight,
+		"iterate":    iterate,
+		"inc":        inc,
+		"dec":        dec,
 	}
 	renderer := &TemplateRenderer{
-		templates: template.Must(template.New("weight").Funcs(variableFunc).ParseGlob("views/berat/*.gohtml")),
+		templates: template.Must(template.New("weight").Funcs(variableFunc).ParseGlob("views/*.gohtml")),
 	}
 	e.Renderer = renderer
 }

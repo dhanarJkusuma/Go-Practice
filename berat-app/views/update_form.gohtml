@@ -19,26 +19,40 @@
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">Ubah Data</h1>
-      {{ if . }}
-        {{ . }}
+       {{ if .Message }}
+        {{ if .IsError }}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ .Message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {{ else }}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ .Message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {{ end }}
       {{ end }}
     </div>
 
     <div class="container">
       <div class="card-deck mb-12 text-center">
         <div class="col-md-6 offset-md-3">
-        <form method="POST" action="/update/{{ .ID }}">
+        <form method="POST" action="/update/{{ .Data.ID }}">
             <div class="form-group">
                 <label for="date">Tanggal</label>
-                <input type="text" name="requestDate" class="form-control" id="date" aria-describedby="dateHelp" placeholder="yyyy-mm-dd" value="{{ .Date | parseDate }}">
+                <input type="text" name="requestDate" class="form-control" id="date" aria-describedby="dateHelp" placeholder="yyyy-mm-dd" value="{{ .Data.Date | parseDate }}">
             </div>
             <div class="form-group">
                 <label for="min">Berat Min</label>
-                <input type="number" name="weightMin" class="form-control" id="min" placeholder="40.0" value="{{ .WeightMin }}">
+                <input type="number" name="weightMin" class="form-control" id="min" placeholder="40.0" value="{{ .Data.WeightMin }}">
             </div>
              <div class="form-group">
                 <label for="min">Berat Max</label>
-                <input type="number" name="weightMax" class="form-control" id="max" placeholder="50.0" value="{{ .WeightMax }}">
+                <input type="number" name="weightMax" class="form-control" id="max" placeholder="50.0" value="{{ .Data.WeightMax }}">
             </div>
             <button type="submit" class="btn btn-warning">Ubah</button>
         </form>
@@ -46,6 +60,7 @@
       </div>
 
       {{ template "weight_footer" }}  
+      <br/>
     </div>
 
 
