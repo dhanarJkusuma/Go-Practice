@@ -4,7 +4,7 @@
 
 
 ## How To Run
-[Berat APP]
+**[Berat APP]**
 Already installed inside `Bin` directory of `Berat APP` directory
 - Run Command
 ```
@@ -15,7 +15,7 @@ Already installed inside `Bin` directory of `Berat APP` directory
 ./install.sh
 ```
 
-[Cart APP]
+**[Cart APP]**
 Already installed inside `Bin` directory of `cart` directory
 - Run Command
 ```
@@ -26,7 +26,7 @@ Already installed inside `Bin` directory of `cart` directory
 ./install.sh
 ```
 
-[Fivaa APP]
+**[Fivaa APP]**
 Already installed inside `Bin` directory of `fivaa` directory
 - Run Command
 ```
@@ -37,7 +37,7 @@ Already installed inside `Bin` directory of `fivaa` directory
 ./install.sh
 ```
 
-[Ongkir APP]
+**[Ongkir APP]**
 Already installed inside `Bin` directory of `Ongkir APP` directory
 - Run Command
 ```
@@ -48,7 +48,7 @@ Already installed inside `Bin` directory of `Ongkir APP` directory
 ./install.sh
 ```
 
-[Parkalian APP]
+**[Perkalian APP]**
 Already installed inside `Bin` directory of `perkalian` directory
 - Run Command
 ```
