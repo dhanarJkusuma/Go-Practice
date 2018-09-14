@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	fmt.Println("hello")
-	fivaa(10)
+	fivaa(5)
 }
 
 func fivaa(input int) {

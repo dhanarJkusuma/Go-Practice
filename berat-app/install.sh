@@ -2,7 +2,7 @@
 
 # Change Directory Bin
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-echo "[Inventory App] Changing directory $DIR"
+echo "[Weight App] Changing directory $DIR"
 appBin="$DIR/bin/app"
 if [ -f "$appBin" ]
 then

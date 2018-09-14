@@ -1,0 +1,67 @@
+{{ define "ongkir_index" }}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+    <title>Aplikasi Ongkir</title>
+
+    {{ template "ongkir_header" }}
+  </head>
+
+  <body>
+
+    {{ template "ongkir_navbar" }}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Aplikasi Hitung Ongkir</h1>
+    </div>
+
+    <div class="container">
+      <div class="card-deck mb-12 text-center">
+        <br/>
+        <br/>
+        <div class="col-md-6 offset-md-3">
+          <form method="POST" action="/">
+              <div class="form-group">
+                  <label for="weight">Weight</label>
+                  <input type="text" name="weight" class="form-control" id="weight" placeholder="00.0" value="{{ .Weight }}">
+              </div>
+              <div class="form-group">
+                  <label for="provider">Provider</label>
+                  <select name="provider" class="form-control" id="provider">
+                    {{ range .Ongkirs }}
+                      {{ if eq .OngkirType $.Provider }}
+                        <option value="{{ .OngkirType }}" selected>{{ .OngkirName }}</option>
+                      {{ else }}
+                        <option value="{{ .OngkirType }}">{{ .OngkirName }}</option>
+                      {{ end }}
+                    {{ end }}
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <br/>
+              <br/>
+          </form>
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Result</h4>
+            <strong>{{ .Result | parseToCurrency }}</strong>
+            <hr>
+          </div>
+        </div>
+        <br/>
+        <br/>
+      </div>
+      {{ template "ongkir_footer" }}  
+    </div>
+
+
+    {{ template "ongkir_script" }}
+  </body>
+</html>
+
+{{ end }}
